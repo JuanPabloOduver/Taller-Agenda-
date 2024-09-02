@@ -1,4 +1,4 @@
-package Agenda.src.main.java.co.edu.uniquindio.poo;
+package co.edu.uniquindio.poo;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -8,8 +8,9 @@ public class Grupo {
     private String categoria;  
     private Collection<Contacto> contactos;
 
-    public Grupo(String nombre) {
+    public Grupo(String nombre, String categoria) {
         this.nombre = nombre;
+        this.categoria = categoria;
         this.contactos = new LinkedList<>();
     }
 
@@ -23,10 +24,19 @@ public class Grupo {
     }
 
     public void agregarContacto(Contacto contacto) {
+        if (contactos.size() >= 5) {
+            System.out.println("El tamaño límite del grupo es 5 y no se puede agregar este contacto.");
+            return;
+        }
+    
         if (!verificarContacto(contacto.getNombre(), contacto.getTelefono())) {
             contactos.add(contacto);
+            System.out.println("Contacto agregado exitosamente.");
+        } else {
+            System.out.println("El contacto ya existe en el grupo.");
         }
     }
+
 
     public void eliminarContacto(String telefono) {
         for (Contacto contacto : contactos) {
